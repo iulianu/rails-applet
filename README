@@ -10,7 +10,7 @@ Example
                :main_class => 'com.myproduct.MyApplet',
                :width => 760,
                :height => 490,
-               :missing_text => "Unfortunately you do not have the Java plugin installed. Get it from http://www.java.com"
+               :missing_text => "Unfortunately you do not have the Java plugin installed. Get it from http://www.java.com "
 %>
 
 The applet_tag method assumes the files myapplet.jar and commons-logging-1.1.1.jar are
