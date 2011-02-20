@@ -3,6 +3,8 @@ Applet
 
 Adds a helper method to Rails, to embed a Java applet.
 
+Tested with Rails 2.3 and Rails 3.0.
+
 Example
 =======
 
@@ -10,6 +12,7 @@ Example
                :main_class => 'com.myproduct.MyApplet',
                :width => 760,
                :height => 490,
+	       :params => { "aParam" => "aValue" },
                :missing_text => "Unfortunately you do not have the Java plugin installed. Get it from http://www.java.com "
 %>
 

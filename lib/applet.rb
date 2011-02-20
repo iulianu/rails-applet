@@ -6,10 +6,15 @@ module AppletHelper
     jars = options[:jars] || [options[:jar]]
     jar_uri = jars.map{ |jar_name| "/jars/#{jar_name}.jar" }.join(",")
     code = options[:main_class].gsub(/\./, '/') + '.class'
+    params = options[:params] || {}
     java_url = "http://www.java.com/en/download/"
     missing_text = options[:missing_text] ||
         "This page requires Java. Please download and install Java from <a href=\"#{java_url}\" target=\"_blank\">#{java_url}</a>"
+    params_code = params.map do |k, v|
+      "<param name='#{k}' value='#{v}' />"
+    end.join("\n")
 
+    code =
 """
 <!--[if !IE]> -->
 <object classid='java:#{code}'
@@ -20,6 +25,7 @@ module AppletHelper
   <!-- For Konqueror -->
   <param name='archive' value='#{jar_uri}' />
   <param name='persistState' value='false' />
+  #{params_code}
   <center>
     <p><strong>#{missing_text}</strong></p>
   </center>
@@ -32,12 +38,18 @@ module AppletHelper
   <param name='code' value='#{code}' />
   <param name='archive' value='#{jar_uri}' />
   <param name='persistState' value='false' />
+  #{params_code}
   <center>
     <p><strong>#{missing_text}</strong></p>
   </center>
 </object>
 <![endif]-->
 """
+    if Rails::VERSION::MAJOR < 3
+      code
+    else
+      raw(code)
+    end
   end
 
 end
